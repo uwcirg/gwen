@@ -1,0 +1,8 @@
+---
+version: "3.8"
+services:
+  gwen:
+    environment:
+      FLASK_APP: "gwen/app:create_app()"
+      FLASK_ENV: development
+    command: flask run --host 0.0.0.0

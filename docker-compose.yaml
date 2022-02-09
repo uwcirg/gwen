@@ -1,0 +1,11 @@
+---
+version: "3.8"
+services:
+  gwen:
+    build:
+      context: .
+    ports:
+      # allow override of published port
+      - 127.0.0.1:${P_PORT:-5000}:5000
+    env_file:
+      - gwen.env
