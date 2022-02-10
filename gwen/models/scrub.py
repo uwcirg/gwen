@@ -93,6 +93,9 @@ class ScrubMap(object):
 
     def clean(self, value):
         """generates a "clean" version of value, returning previously used if found"""
+        if not value:
+            return value
+
         # lowercase to generate same value for "Name" and "name"
         value = value.lower()
         dob_match = re.match(birth_year_pattern, value)
