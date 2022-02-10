@@ -43,10 +43,10 @@ def config_settings(config_key):
     return jsonify(settings)
 
 
-@base_blueprint.route("scrub/events")
+@base_blueprint.route("/events")
 def scrub_events():
     """request events and scrub before returning"""
-    response = requests.get(current_app.config["LOGSERVER_URL"])
+    response = requests.get(current_app.config["LOGSERVER_URL"] + "/events")
     response.raise_for_status()
 
     clean_data, scrub_map = scrub_input(response.json())
