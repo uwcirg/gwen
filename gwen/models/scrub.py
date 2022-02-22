@@ -84,9 +84,16 @@ class ScrubMap(object):
         # taking least sig digits isn't guaranteed unique - use more as needed
         digits = 2
         full_hash = str(hash(value))
+
+        def first_letter(letter):
+            if letter == " ":
+                return "_"
+            return letter
+
         while True:
             # maintain first letter and append needed len of hash to keep unique
-            hashed = value[0] + full_hash[-digits:]
+            first = first_letter(value[0])
+            hashed = first + full_hash[-digits:]
             if hashed not in self.map.values():
                 return hashed
             digits += 1
@@ -113,6 +120,10 @@ class ScrubMap(object):
                 tokens = value.split(" ")
                 hashed_tokens = []
                 for token in tokens:
+                    # empty strings in tokens imply extra or embedded white space
+                    # retain to map uniquely as needed
+                    if token == "":
+                        token = " "
                     if token not in self.map:
                         self.map[token] = self.hash_string(token)
                     hashed_tokens.append(self.map[token])
