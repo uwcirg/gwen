@@ -11,5 +11,4 @@ COPY . .
 EXPOSE 5000
 
 CMD \
-    flask bootstrap && \
     gunicorn --bind "0.0.0.0:${P_PORT:-5000}" ${FLASK_APP}
