@@ -47,6 +47,17 @@ def test_name_case():
     assert len(sm.map) == 1
 
 
+def test_names_extra_whitespace():
+    full_name = "first  last"
+    sm = ScrubMap()
+    full_hash = sm.clean(full_name)
+    tokenized = []
+    for i in ("first", " ", "last"):
+        tokenized.append(sm.clean(i))
+
+    assert full_hash == " ".join(tokenized)
+
+
 def test_tokenized_name():
     full_name = "first last"
     sm = ScrubMap()
