@@ -1,5 +1,5 @@
 import requests
-from flask import Blueprint, abort, current_app, jsonify
+from flask import Blueprint, abort, current_app, jsonify, request
 from flask.json import JSONEncoder
 from gwen.models.scrub import scrub_input
 
@@ -50,4 +50,9 @@ def scrub_events():
     response.raise_for_status()
 
     clean_data, scrub_map = scrub_input(response.json())
+
+    # Hide the scrub_map unless specifically requested
+    if "map" not in request.args:
+        return jsonify(clean_data)
+
     return jsonify(clean_data=clean_data, scrub_map=scrub_map)
