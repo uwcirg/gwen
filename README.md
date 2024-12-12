@@ -1,5 +1,5 @@
 # GWEN
-Named after the late great reporter Gwen Ifill, `gwen` works in concert with `logserver`
+Named after the late great reporter Gwen Ifill, `gwen` works in concert with [`logserver`](https://github.com/uwcirg/logserver)
  to generate project specific reports.
 
 ## How To Run
