@@ -23,19 +23,19 @@ def config_settings(config_key):
 
     current_app.json_encoder = CustomJSONEncoder
 
-    # return selective keys - not all can be be viewed by users, e.g.secret key
+    # return selective keys - not all can be viewed by users, e.g.secret key
     blacklist = ("SECRET", "KEY", "PASS", "TOKEN", "CREDENTIAL", "AUTH")
 
     if config_key:
-        key = config_key.upper()
+        upper_key = config_key.upper()
         for pattern in blacklist:
-            if pattern in key:
-                abort(status_code=400, messag=f"Configuration key {key} not available")
-        return jsonify({key: current_app.config.get(key)})
+            if pattern in upper_key:
+                abort(status_code=400, messag=f"Configuration key {config_key} not available")
+        return jsonify({config_key: current_app.config.get(config_key)})
 
     settings = {}
     for key in current_app.config:
-        matches = any(pattern for pattern in blacklist if pattern in key)
+        matches = any(pattern for pattern in blacklist if pattern in key.upper())
         if matches:
             continue
         settings[key] = current_app.config.get(key)
